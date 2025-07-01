@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <!-- Wizard Form View -->
+  <record id="view_bank_employee_report_wizard_form" model="ir.ui.view">
+    <field name="name">bank.employee.report.wizard.form</field>
+    <field name="model">employee.detail.wizard</field>
+    <field name="arch" type="xml">
+      <form string="Print Employee Report">
+        <sheet>
+          <group>
+            <field name="employee_id" readonly="1"/>
+          </group>
+          <group string="Report Options">
+            <field name="include_contacts"/>
+            <field name="detail_notes" placeholder="Enter any additional notes for the report..."/>
+          </group>
+        </sheet>
+        <footer>
+          <button name="action_print_report" type="object" string="Print Report" class="btn-primary"/>
+          <button string="Cancel" special="cancel" class="btn-secondary"/>
+        </footer>
+      </form>
+    </field>
+  </record>
+
+  <!-- Wizard Action -->
+  <record id="action_open_bank_employee_report_wizard" model="ir.actions.act_window">
+    <field name="name">Employee Report Wizard</field>
+    <field name="res_model">employee.detail.wizard</field>
+    <field name="view_mode">form</field>
+    <field name="target">new</field>
+    <field name="context">{'default_employee_id': active_id}</field>
+  </record>
+</odoo>

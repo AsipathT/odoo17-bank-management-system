@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Record Rule: Restrict access to Bank Employees to Managers only -->
+    <record id="rule_bank_employee_manager_only" model="ir.rule">
+      <field name="name">Bank Employee: Manager Access Only</field>
+      <field name="model_id" ref="bank_management.model_bank_employee"/>
+      <field name="domain_force">[('is_active','=', True)]</field> <!-- Full access -->
+      <field name="perm_read" eval="1"/>
+      <field name="perm_write" eval="1"/>
+      <field name="perm_create" eval="1"/>
+      <field name="perm_unlink" eval="1"/>
+      <field name="groups" eval="[(4, ref('bank_management_custom.group_bank_employee_manager'))]"/>
+    </record>
+</odoo>
+

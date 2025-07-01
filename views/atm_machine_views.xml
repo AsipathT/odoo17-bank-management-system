@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- Your records go here -->
+        <record id="view_atm_machine_tree" model="ir.ui.view">
+            <field name="name">atm.machine.tree</field>
+            <field name="model">bank.atm</field>
+            <field name="arch" type="xml">
+                <tree decoration-success="atm_status == 'working'" decoration-danger="atm_status == 'out_of_service'">
+                    <field name="name"/>
+                    <field name="code" optional="0"/>
+                    <field name="location"/>
+                    <field name="atm_status" widget="badge"/>
+                    <field name="is_active" widget="boolean_toggle"/>
+                    <field name="branch_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Repeat for kanban view, form view, action, and menu -->
+
+    </data>
+</odoo>

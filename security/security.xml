@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+  <!-- Module Category: Bank Management -->
+  <record id="module_category_bank_management" model="ir.module.category">
+    <field name="name">Bank Management</field>
+    <field name="description">Access rights for managing bank-related operations</field>
+    <field name="sequence">15</field>
+  </record>
+
+  <!-- Module Category: ATM Operations -->
+  <record id="module_category_atm_operations" model="ir.module.category">
+    <field name="name">ATM Operations</field>
+    <field name="description">Access rights for managing ATM-related processes</field>
+    <field name="sequence">16</field>
+  </record>
+
+  <!-- Group: Bank User (basic access only) -->
+  <record id="group_bank_user" model="res.groups">
+    <field name="name">Bank User</field>
+    <field name="category_id" ref="bank_management_custom.module_category_bank_management"/>
+    <field name="comment">Basic user access for bank employees.</field>
+  </record>
+
+  <!-- Group: Bank Employee Manager (inherits from Bank User) -->
+  <record id="group_bank_employee_manager" model="res.groups">
+    <field name="name">Bank Employee Manager</field>
+    <field name="category_id" ref="bank_management_custom.module_category_bank_management"/>
+    <field name="comment">Can manage all bank employee records (inherits Bank User rights).</field>
+    <field name="implied_ids" eval="[(4, ref('bank_management_custom.group_bank_user'))]"/>
+  </record>
+
+  <!-- Group: ATM Operator (independent group, inherits basic user) -->
+  <record id="group_atm_operator" model="res.groups">
+    <field name="name">ATM Operator</field>
+    <field name="category_id" ref="bank_management_custom.module_category_atm_operations"/>
+    <field name="comment">Can operate and manage ATM-related tasks.</field>
+    <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+  </record>
+
+</odoo>

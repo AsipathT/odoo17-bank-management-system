@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+    <record id="bank_management_custom.menu_bank_employee" model="ir.ui.menu">
+      <field name="groups" eval="[(4, ref('module_name.group_manager'))]"/>
+    </record>
+  </data>
+</odoo>

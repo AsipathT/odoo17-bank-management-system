@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <!-- QWeb Template -->
+  <template id="report_bank_employee_template">
+    <t t-call="web.html_container">
+      <t t-foreach="docs" t-as="employee">
+        <div class="page" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 30px; color: #2c3e50;">
+
+          <!-- Header -->
+          <header style="background: linear-gradient(90deg, #27ae60 0%, #2ecc71 100%); color: white; padding: 25px; border-radius: 10px; margin-bottom: 30px; text-align: center;">
+            <h1 style="margin: 0; font-weight: 800; font-size: 30px;">
+               Employee Profile: <t t-esc="employee.name or 'N/A'"/>
+            </h1>
+          </header>
+
+          <!-- Profile Info Section -->
+          <section style="display: flex; align-items: center; margin-bottom: 35px;">
+            <!-- Avatar -->
+            <div style="flex: 0 0 100px; height: 100px; background-color: #27ae60; color: white; font-size: 36px; font-weight: bold; display: flex; align-items: center; justify-content: center; border-radius: 50%; margin-right: 25px;">
+              <t t-esc="(employee.name and employee.name[0:2].upper()) or '?'"/>
+            </div>
+
+            <!-- Info -->
+            <div style="flex: 1; font-size: 15px; line-height: 1.8;">
+              <p><strong> Branch:</strong> <span><t t-esc="employee.branch_id.name or 'N/A'"/></span></p>
+              <p><strong> Branch Code:</strong> <span style="color: #8e44ad; font-weight: 600;"><t t-esc="employee.code or 'N/A'"/></span></p>
+              <p>
+                <strong> Branch Color:</strong>
+                <span t-att-style="'display:inline-block; background-color: %s; color: white; padding: 5px 12px; border-radius: 8px; font-weight: 600;' % (employee.branch_color or '#7f8c8d')">
+                  <t t-esc="employee.branch_color or 'N/A'"/>
+                </span>
+              </p>
+            </div>
+          </section>
+
+          <!-- Contact Table -->
+          <section>
+            <h2 style="color: #2980b9; font-size: 22px; margin-bottom: 15px; border-bottom: 2px solid #2980b9; padding-bottom: 5px;">
+               Contact Details
+            </h2>
+            <table style="width: 100%; border-collapse: collapse; font-size: 14px; border-radius: 8px; overflow: hidden;">
+              <thead>
+                <tr style="background: linear-gradient(90deg, #2980b9, #3498db); color: #fff;">
+                  <th style="padding: 12px; border: 1px solid #ccc;">Name</th>
+                  <th style="padding: 12px; border: 1px solid #ccc;">Phone</th>
+                  <th style="padding: 12px; border: 1px solid #ccc;">Mobile</th>
+                  <th style="padding: 12px; border: 1px solid #ccc;">Email</th>
+                  <th style="padding: 12px; border: 1px solid #ccc;">Address</th>
+                </tr>
+              </thead>
+              <tbody>
+                <t t-if="employee.contact_ids and len(employee.contact_ids) &gt; 0">
+                  <t t-foreach="employee.contact_ids" t-as="contact">
+                    <tr style="background-color: #f9f9f9; border-bottom: 1px solid #ddd;">
+                      <td style="padding: 10px; border: 1px solid #ccc;"><t t-esc="contact.name or '—'"/></td>
+                      <td style="padding: 10px; border: 1px solid #ccc;"><t t-esc="contact.phone or '—'"/></td>
+                      <td style="padding: 10px; border: 1px solid #ccc;"><t t-esc="contact.mobile or '—'"/></td>
+                      <td style="padding: 10px; border: 1px solid #ccc;"><t t-esc="contact.email or '—'"/></td>
+                      <td style="padding: 10px; border: 1px solid #ccc;"><t t-esc="contact.address or '—'"/></td>
+                    </tr>
+                  </t>
+                </t>
+                <t t-if="not employee.contact_ids or len(employee.contact_ids) == 0">
+                  <tr>
+                    <td colspan="5" style="padding: 16px; text-align: center; color: #7f8c8d; font-style: italic;">
+                      No contact details available.
+                    </td>
+                  </tr>
+                </t>
+              </tbody>
+            </table>
+          </section>
+
+          <!-- Footer -->
+          <footer style="margin-top: 50px; text-align: center; font-size: 11px; color: #bdc3c7;">
+            <hr style="border: none; border-top: 1px solid #ccc; margin: 18px 0 12px;"/>
+            <p>© 2025 Bank Management System • All rights reserved</p>
+          </footer>
+
+        </div>
+      </t>
+    </t>
+  </template>
+
+  <!-- Report Action -->
+  <record id="action_report_bank_employee" model="ir.actions.report">
+    <field name="name">Bank Employee Report</field>
+    <field name="model">bank.employee</field>
+    <field name="report_type">qweb-pdf</field>
+    <field name="report_name">bank_management_custom.report_bank_employee_template</field>
+    <field name="report_file">bank_management_custom.report_bank_employee_template</field>
+    <field name="binding_model_id" ref="bank_management.model_bank_employee"/>
+    <field name="binding_type">report</field>
+    <field name="paperformat_id" ref="bank_management_custom.paperformat_bank_report"/>
+  </record>
+</odoo>

@@ -1,0 +1,14 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_bank_contact_user,access.bank.contact.user,model_bank_contact,base.group_system,1,1,1,1
+access_bank_employee_user,access.bank.employee.user,model_bank_employee,base.group_system,1,1,1,1
+access_bank_employee_report_wizard_user,access.bank.employee.report.wizard.user,model_employee_detail_wizard,base.group_system,1,1,1,0
+access_group_bank_user_user,access.group_bank_user.user,model_bank_employee,base.group_system,1,1,1,
+bank_employee_access_all,bank.employee.access.all,bank_management.model_bank_employee,base.group_system,1,1,1,1
+bank_branch_access_all,bank.branch.access.all,bank_management.model_bank_branch,base.group_system,1,1,1,1
+employee_skills_access_all,employee.skills.access.all,bank_management.model_employee_skills,base.group_system,1,1,1,1
+bank_atm_access_all,bank.atm.access.all,bank_management.model_bank_atm,bank_management_custom.group_bank_employee_manager,1,1,1,1
+access_bank_employee_manager,access.bank.employee.manager,model_bank_employee,bank_management_custom.group_bank_employee_manager,1,1,1,1
+access_bank_contact_user,access.bank.contact.user,model_bank_contact,bank_management_custom.group_bank_employee_manager,1,1,1,1
+
+
+

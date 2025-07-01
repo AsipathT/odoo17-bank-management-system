@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <!-- Employee Report Action -->
+  <record id="action_report_bank_employee" model="ir.actions.report">
+    <field name="name">Bank Employee Report</field>
+    <field name="model">bank.employee</field>
+    <field name="report_type">qweb-pdf</field>
+    <field name="report_name">bank_management_custom.report_bank_employee_template</field>
+    <field name="report_file">bank_management_custom.report_bank_employee_template</field>
+    <field name="binding_model_id" ref="bank_management.model_bank_employee"/>
+    <field name="binding_type">report</field>
+    <field name="paperformat_id" ref="bank_management_custom.paperformat_bank_report"/>
+  </record>
+
+  <!-- Combined Report Action -->
+  <record id="action_report_combined_bank_employee" model="ir.actions.report">
+    <field name="name">Combined Bank Employee Report</field>
+    <field name="model">bank.employee</field>
+    <field name="report_type">qweb-pdf</field>
+    <field name="report_name">bank_management_custom.report_combined_bank_template</field>
+    <field name="report_file">bank_management_custom.report_combined_bank_template</field>
+    <field name="binding_model_id" ref="bank_management.model_bank_employee"/>
+    <field name="binding_type">report</field>
+    <field name="paperformat_id" ref="bank_management_custom.paperformat_bank_report"/>
+  </record>
+
+  <!-- Wizard Report Action - UPDATED -->
+  <record id="action_report_bank_employee_wizard" model="ir.actions.report">
+    <field name="name">Bank Employee Wizard Report</field>
+    <field name="model">employee.detail.wizard</field>  <!-- Changed to wizard model -->
+    <field name="report_type">qweb-pdf</field>
+    <field name="report_name">bank_management_custom.report_bank_employee_template_test</field>
+    <field name="report_file">bank_management_custom.report_bank_employee_template_test</field>
+    <field name="paperformat_id" ref="bank_management_custom.paperformat_bank_report"/>
+    <!-- Add binding if you want this report to appear in print menu -->
+    <field name="binding_model_id" ref="model_employee_detail_wizard"/> 
+    <field name="binding_type">report</field>
+  </record>
+
+  <!-- Add this record if you haven't defined model_employee_detail_wizard yet -->
+ <record id="action_employee_wizard_report" model="ir.actions.report">
+    <field name="name">Employee Wizard Report</field>
+    <field name="model">employee.detail.wizard</field>
+    <field name="report_type">qweb-pdf</field>
+    <field name="report_name">bank_management_custom.employee_wizard_report</field>
+    <field name="report_file">bank_management_custom.employee_wizard_report</field>
+    <field name="paperformat_id" ref="bank_management_custom.paperformat_bank_report"/>
+</record>
+</odoo>

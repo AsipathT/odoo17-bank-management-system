@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+
+    <!-- Inherited Form View with Custom Buttons and Contacts Tab -->
+    <record id="view_bank_employee_form_inherit" model="ir.ui.view">
+      <field name="name">view.bank.employee.form.inherit</field>
+      <field name="model">bank.employee</field>
+      <field name="inherit_id" ref="bank_management.view_bank_employee_form"/>
+      <field name="arch" type="xml">
+
+        <!-- Add header buttons -->
+        <xpath expr="//sheet" position="inside">
+          <header>
+            <button name="action_show_branch_color"
+                    type="object"
+                    string="Show Branch Color"
+                    class="btn btn-primary o_form_button"
+                    icon="fa-eye"/>
+
+            <button name="%(bank_management_custom.action_open_bank_employee_report_wizard)d"
+                    type="action"
+                    string="Print Wizard Report"
+                    class="btn btn-secondary o_form_button"
+                    icon="fa-file-pdf-o"/>
+
+            <button name="action_assign_to_user"
+                    type="object"
+                    string="Assign To User"
+                    class="btn btn-success o_form_button"
+                    icon="fa-user"/>
+
+            <button name="action_toggle_branch_color"
+                    type="object"
+                    string="Toggle Branch Color"
+                    class="btn btn-warning o_form_button"
+                    icon="fa-paint-brush"/>
+
+            <button name="action_show_employee_summary"
+                    type="object"
+                    string="Summary"
+                    class="btn btn-info o_form_button"
+                    icon="fa-info-circle"/>
+          </header>
+        </xpath>
+
+        <!-- Add branch_color field -->
+        <xpath expr="//field[@name='branch_id']" position="after">
+          <field name="branch_color"/>
+        </xpath>
+
+        <!-- Contacts tab with buttons -->
+        <xpath expr="//sheet/notebook" position="inside">
+          <page string="Contacts">
+            <group>
+              <div class="oe_button_box" name="button_box">
+                <button name="action_create_new_contact"
+                        type="object"
+                        string="Create New Contact"
+                        class="btn btn-success"
+                        icon="fa-plus"/>
+                <button name="action_remove_all_contacts"
+                        type="object"
+                        string="Remove All Contacts"
+                        class="btn btn-danger"
+                        icon="fa-trash"/>
+                <button name="action_edit_first_contact"
+                        type="object"
+                        string="Edit First Contact"
+                        class="btn btn-primary"
+                        icon="fa-edit"/>
+              </div>          
+            </group>
+
+            <!-- One2many Contact List -->
+            <field name="contact_ids" mode="tree,form"
+                   editable="bottom"
+                   context="{'default_employee_id': active_id}">
+              <tree string="Contacts">
+                <field name="name"/>
+                <field name="phone"/>
+                <field name="mobile"/>
+                <field name="email"/>
+                <field name="address"/>
+              </tree>
+            </field>
+
+          </page>
+        </xpath>
+
+      </field>
+    </record>
+
+    <!-- View Inheritance to Hide Assign To User Button for group_bank_user -->
+    <record id="view_bank_employee_form_hide_button" model="ir.ui.view">
+      <field name="name">bank.employee.form.inherit.hide.button</field>
+      <field name="model">bank.employee</field>
+      <field name="inherit_id" ref="bank_management_custom.view_bank_employee_form_inherit"/>
+      <field name="arch" type="xml">
+
+        <!-- Hide button only for group_bank_user -->
+        <xpath expr="//button[@name='action_assign_to_user']" position="attributes">
+          <attribute name="groups">!bank_management_custom.group_bank_user</attribute>
+        </xpath>
+
+      </field>
+    </record>
+
+  </data>
+</odoo>
